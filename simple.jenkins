@@ -8,11 +8,25 @@ pipeline {
     }
 
     stages {
-        stage('Simple-Jenkins-Steps') {
+        stage('Build') {
             steps {
-               echo "Start"
+               echo "Start Build"
                echo "Doing something.."
-               echo "End"
+               echo "End Build"
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Start Test"
+                echo "Testing......."
+                echo "End Test"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo "Start Deploy"
+                echo "Deploying......."
+                echo "End Deploy"
             }
         }
     }
