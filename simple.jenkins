@@ -25,6 +25,13 @@ pipeline {
             steps {
                 echo "Start Test"
                 echo "Testing.......${TEXT}"
+                echo "---------------------"
+                sh "ls -la"
+                sh '''
+                   echo "Line1"
+                   echo "Line2"
+                '''
+                echo "---------------------"
                 echo "End Test"
             }
         }
