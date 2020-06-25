@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Simple-Jenkins-Steps') {
+            steps {
+               echo "Start"
+               echo "Doing something.."
+               echo "End"
+            }
+        }
+    }
+}
