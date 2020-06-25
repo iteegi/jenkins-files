@@ -33,6 +33,7 @@ pipeline {
                 echo "Start Deploy"
                 echo "Deploying......."
                 echo "End Deploy"
+                echo "Build version ${BUILD_NUMBER}"
             }
         }
     }
