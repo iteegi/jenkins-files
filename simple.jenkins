@@ -7,7 +7,9 @@ pipeline {
         timestamps()
     }
     
-    environment {
+    environment {      
+      ACCESS_KEY = credentials('jenkins_github_key')
+      
       PROJECT_NAME = "Super Duper"
       TEXT   = "Something text"
     }
@@ -37,10 +39,12 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo "Start Deploy"
-                echo "Deploying......."
-                echo "End Deploy"
+                echo "Start Deploy"                
+                sh 'echo "SSH passphrase is $ACCESS_KEY"'
+                sh 'echo "SSH passphrase is $ACCESS_KEY_USR"'
+                sh 'echo "SSH passphrase is $ACCESS_KEY_PSW"'                
                 echo "Build version ${BUILD_NUMBER}"
+                echo "End Deploy"
             }
         }
     }
