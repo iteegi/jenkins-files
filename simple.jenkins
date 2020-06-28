@@ -13,6 +13,10 @@ pipeline {
       PROJECT_NAME = "Super Duper"
       TEXT   = "Something text"
     }
+    
+    parameters {
+      string(name: 'FILE', defaultValue: 'simple.jenkins', description: 'simple.jenkins')
+    }
 
     stages {
         stage('Build') {
@@ -34,6 +38,7 @@ pipeline {
                    echo "Line2"
                 '''
                 echo "---------------------"
+                echo "---> ${params.FILE}"
                 echo "End Test"
             }
         }
