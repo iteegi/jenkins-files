@@ -15,7 +15,8 @@ pipeline {
     }
     
     parameters {
-      string(name: 'FILE', defaultValue: 'simple.jenkins', description: 'simple.jenkins')
+      string(name: 'FILE', defaultValue: 'jenkins', description: 'jenkins')
+      choice(name: 'CHOICE', choices: ['One', 'Two', 'jenkins'], description: 'choice')
     }
 
     stages {
@@ -42,6 +43,29 @@ pipeline {
                 echo "End Test"
             }
         }
+        
+        stage("Test-FALSE") {
+            when {
+                expression {
+                    return false
+                }
+            }
+            steps {
+                echo "Test-FALSE"
+            }
+        }
+        
+        stage("Test-TRUE") {
+            when {
+                expression {
+                    params.CHOICE == params.FILE
+                }
+            }
+            steps {
+                echo "Test-TRUE"
+            }
+        }
+        
         stage('Deploy') {
             steps {
                 echo "Start Deploy"                
@@ -49,6 +73,7 @@ pipeline {
                 sh 'echo "SSH passphrase is $ACCESS_KEY_USR"'
                 sh 'echo "SSH passphrase is $ACCESS_KEY_PSW"'                
                 echo "Build version ${BUILD_NUMBER}"
+                echo "Choice: ${params.CHOICE}"
                 echo "End Deploy"
             }
         }
