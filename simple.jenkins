@@ -10,27 +10,45 @@ pipeline {
     }
     
     environment {      
-      ACCESS_KEY = credentials('jenkins_github_key')
-      
-      PROJECT_NAME = "Super Duper"
-      TEXT   = "Something text"
+        ACCESS_KEY = credentials('jenkins_github_key')
+
+        PROJECT_NAME = "Super Duper"
+        TEXT   = "Something text"
     }
     
     parameters {
-      string(name: 'FILE', defaultValue: 'jenkins', description: 'jenkins')
-      choice(name: 'CHOICE', choices: ['One', 'Two', 'jenkins'], description: 'choice')
+        string(name: 'FILE', defaultValue: 'jenkins', description: 'jenkins')
+        choice(name: 'CHOICE', choices: ['One', 'Two', 'jenkins'], description: 'choice')
     }
 
     stages {
         stage('Build') {
             steps {
-               echo "Start Build"     
-               deleteDir()
-               git( credentialsId: 'jenkins_github_key',
+                echo "Start Build"     
+                deleteDir()
+                git( credentialsId: 'jenkins_github_key',
                     url: 'git@github.com:iteegi/jenkins-files.git')
-               echo "Start ${PROJECT_NAME} project"
-               sh 'pwd'
-               echo "End Build"
+                echo "Start ${PROJECT_NAME} project"
+                sh 'pwd'
+                echo "End Build"
+            }
+            
+            post {
+                always {
+                    echo "Stage 'Build' finished"
+                }
+                changed {
+                    echo "Stage HAVE CHANGED"
+                }
+                failure {
+                    echo "Stage FAILED"
+                }
+                success {
+                    echo "Stage was Successful"
+                }
+                unstable {
+                    echo "Stage is Unstable"
+                }
             }
         }
         stage('Test') {
@@ -81,6 +99,11 @@ pipeline {
                 echo "Choice: ${params.CHOICE}"
                 echo "End Deploy"
             }
+        }
+    }
+    post {
+        always {
+            echo "Pipeline is done"
         }
     }
 }
