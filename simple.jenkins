@@ -26,8 +26,10 @@ pipeline {
             steps {
                echo "Start Build"     
                deleteDir()
+               git( credentialsId: 'jenkins_github_key',
+                    url: 'git@github.com:iteegi/jenkins-files.git')
                echo "Start ${PROJECT_NAME} project"
-               echo "Doing something.."
+               sh 'pwd'
                echo "End Build"
             }
         }
