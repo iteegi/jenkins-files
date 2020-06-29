@@ -1,3 +1,5 @@
+#!groovy
+
 pipeline {
     agent any
     
@@ -22,7 +24,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-               echo "Start Build"               
+               echo "Start Build"     
+               deleteDir()
                echo "Start ${PROJECT_NAME} project"
                echo "Doing something.."
                echo "End Build"
